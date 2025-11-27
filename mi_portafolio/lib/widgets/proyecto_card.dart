@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 
 class ProyectoCard extends StatelessWidget {
-  const ProyectoCard({super.key});
+  // Parámetros que recibe el widget
+  final String titulo;
+  final String descripcion;
+  final String tecnologias;
+  final String estado;
+
+  // Constructor con parámetros requeridos
+  const ProyectoCard({
+    super.key,
+    required this.titulo,
+    required this.descripcion,
+    required this.tecnologias,
+    required this.estado,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // ===========================================
-    // WIDGET 1: Container
-    // Es una "caja" que contiene otros widgets
-    // Permite agregar color, bordes, padding, etc.
-    // ===========================================
     return Container(
-      // Espacio INTERNO (entre el borde y el contenido)
       padding: const EdgeInsets.all(20),
-      
-      // Decoración del contenedor
+      margin: const EdgeInsets.only(bottom: 16), // Espacio entre tarjetas
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        // Sombra para dar efecto de elevación
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -27,191 +32,52 @@ class ProyectoCard extends StatelessWidget {
           ),
         ],
       ),
-      
-      // ===========================================
-      // WIDGET 2: Column
-      // Organiza widgets de arriba hacia abajo
-      // ===========================================
       child: Column(
-        // Alinear contenido a la izquierda
         crossAxisAlignment: CrossAxisAlignment.start,
-        // Ajustar altura al contenido (no expandir)
         mainAxisSize: MainAxisSize.min,
         children: [
-          // ===========================================
-          // WIDGET 3: Text
-          // Muestra texto en pantalla
-          // ===========================================
-
-
-          // Dentro del Column, como primer hijo:
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              'https://picsum.photos/400/200', // URL de imagen de prueba
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-
-          
-          // Título del proyecto
           Text(
-            'Sistema de Gestión de Biblioteca', // 👈 CAMBIA ESTE TEXTO
+            titulo, // Usar el parámetro
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.purple[800],
+              color: Colors.blue[800],
             ),
           ),
-          
           const SizedBox(height: 8),
-          
-          // Descripción del proyecto
           Text(
-            'Aplicación web para gestionar préstamos de libros, '
-            'registro de usuarios y catálogo digital. Desarrollado '
-            'como proyecto final del módulo de programación.', // 👈 CAMBIA ESTE TEXTO
+            descripcion, // Usar el parámetro
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[600],
-              height: 1.5, // Espacio entre líneas
+              height: 1.5,
             ),
           ),
-          
           const SizedBox(height: 16),
-          
-          // Tecnologías usadas (dentro de un Container con estilo)
-          // Reemplaza el Container de tecnologías por:
-          Wrap(
-            spacing: 8, // Espacio horizontal entre chips
-            runSpacing: 8, // Espacio vertical entre filas
-            children: [
-              Chip(
-                label: const Text('Flutter'),
-                backgroundColor: Colors.blue[50],
-                labelStyle: TextStyle(color: Colors.blue[700], fontSize: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              tecnologias, // Usar el parámetro
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.blue[700],
+                fontWeight: FontWeight.w500,
               ),
-              Chip(
-                label: const Text('Dart'),
-                backgroundColor: Colors.blue[50],
-                labelStyle: TextStyle(color: Colors.blue[700], fontSize: 12),
-              ),
-              Chip(
-                label: const Text('Firebase'),
-                backgroundColor: Colors.orange[50],
-                labelStyle: TextStyle(color: Colors.orange[700], fontSize: 12),
-              ),
-            ],
+            ),
           ),
-
-
-
-
-
-          // Agregar antes del estado
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Progreso: 75%',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
-              ),
-              const SizedBox(height: 4),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: LinearProgressIndicator(
-                  value: 0.75, // 0.0 a 1.0 (0% a 100%)
-                  backgroundColor: Colors.grey[300],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
-                  minHeight: 8,
-                ),
-              ),
-            ],
-          ),
-
           const SizedBox(height: 12),
-
-
-
-
-
-          
-          // Estado del proyecto
           Text(
-            'Estado: En desarrollo', // 👈 CAMBIA ESTE TEXTO
+            'Estado: $estado', // Usar el parámetro
             style: TextStyle(
               fontSize: 12,
               color: Colors.green[600],
               fontWeight: FontWeight.w500,
             ),
           ),
-
-
-
-          // Fecha del proyecto
-          // Reemplaza el Text de fecha por esto:
-          Row(
-            children: [
-              Icon(
-                Icons.calendar_today,
-                size: 16,
-                color: Colors.grey[500],
-              ),
-              const SizedBox(width: 4),
-              Text(
-                'Enero 2024',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[500],
-                ),
-              ),
-            ],
-          ),
-
-
-
-
-
-
-          const SizedBox(height: 16),
-
-          // Botones de acción
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  // Acción al presionar (vacío por ahora)
-                  print('Ver código presionado');
-                },
-                icon: const Icon(Icons.code, size: 18),
-                label: const Text('Código'),
-              ),
-              const SizedBox(width: 8),
-              ElevatedButton.icon(
-                onPressed: () {
-                  print('Ver demo presionado');
-                },
-                icon: const Icon(Icons.launch, size: 18),
-                label: const Text('Demo'),
-              ),
-            ],
-          ),
-
-
-
-
-
-
-
         ],
       ),
     );
