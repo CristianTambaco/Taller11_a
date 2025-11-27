@@ -42,14 +42,30 @@ class ProyectoCard extends StatelessWidget {
           // WIDGET 3: Text
           // Muestra texto en pantalla
           // ===========================================
+
+
+          // Dentro del Column, como primer hijo:
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              'https://picsum.photos/400/200', // URL de imagen de prueba
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+
           
           // Título del proyecto
           Text(
             'Sistema de Gestión de Biblioteca', // 👈 CAMBIA ESTE TEXTO
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.blue[800],
+              color: Colors.purple[800],
             ),
           ),
           
@@ -70,26 +86,63 @@ class ProyectoCard extends StatelessWidget {
           const SizedBox(height: 16),
           
           // Tecnologías usadas (dentro de un Container con estilo)
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 6,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.blue[50],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              'Flutter • Dart • Firebase', // 👈 CAMBIA ESTE TEXTO
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.blue[700],
-                fontWeight: FontWeight.w500,
+          // Reemplaza el Container de tecnologías por:
+          Wrap(
+            spacing: 8, // Espacio horizontal entre chips
+            runSpacing: 8, // Espacio vertical entre filas
+            children: [
+              Chip(
+                label: const Text('Flutter'),
+                backgroundColor: Colors.blue[50],
+                labelStyle: TextStyle(color: Colors.blue[700], fontSize: 12),
               ),
-            ),
+              Chip(
+                label: const Text('Dart'),
+                backgroundColor: Colors.blue[50],
+                labelStyle: TextStyle(color: Colors.blue[700], fontSize: 12),
+              ),
+              Chip(
+                label: const Text('Firebase'),
+                backgroundColor: Colors.orange[50],
+                labelStyle: TextStyle(color: Colors.orange[700], fontSize: 12),
+              ),
+            ],
           ),
-          
+
+
+
+
+
+          // Agregar antes del estado
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Progreso: 75%',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 4),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: LinearProgressIndicator(
+                  value: 0.75, // 0.0 a 1.0 (0% a 100%)
+                  backgroundColor: Colors.grey[300],
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+                  minHeight: 8,
+                ),
+              ),
+            ],
+          ),
+
           const SizedBox(height: 12),
+
+
+
+
+
           
           // Estado del proyecto
           Text(
@@ -100,6 +153,65 @@ class ProyectoCard extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
+
+
+
+          // Fecha del proyecto
+          // Reemplaza el Text de fecha por esto:
+          Row(
+            children: [
+              Icon(
+                Icons.calendar_today,
+                size: 16,
+                color: Colors.grey[500],
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Enero 2024',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[500],
+                ),
+              ),
+            ],
+          ),
+
+
+
+
+
+
+          const SizedBox(height: 16),
+
+          // Botones de acción
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  // Acción al presionar (vacío por ahora)
+                  print('Ver código presionado');
+                },
+                icon: const Icon(Icons.code, size: 18),
+                label: const Text('Código'),
+              ),
+              const SizedBox(width: 8),
+              ElevatedButton.icon(
+                onPressed: () {
+                  print('Ver demo presionado');
+                },
+                icon: const Icon(Icons.launch, size: 18),
+                label: const Text('Demo'),
+              ),
+            ],
+          ),
+
+
+
+
+
+
+
         ],
       ),
     );
